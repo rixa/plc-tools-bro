@@ -36,3 +36,30 @@
     </script>
 </body>
 </html>
+<!-- Fitur Kedua: Kalkulator Kode Warna Resistor 4 Band -->
+<div class="tool-card">
+    <h2>Kalkulator Resistor</h2>
+    <select id="band1"></select>
+    <select id="band2"></select>
+    <select id="band3"></select>
+    <select id="tolerance"></select>
+    <button onclick="calcResistor()">Hitung Nilai</button>
+    <div id="resistorResult"></div>
+    <script>
+        // Daftar warna resistor
+        const colors = ["Hitam", "Coklat", "Merah", "Oranye", "Kuning", "Hijau", "Biru", "Ungu", "Abu-abu", "Putih"];
+        const band1 = document.getElementById("band1"), band2 = document.getElementById("band2"), band3 = document.getElementById("band3");
+        // Isi dropdown warna
+        colors.forEach((c,i) => {
+            band1.add(new Option(c,i)); band2.add(new Option(c,i)); band3.add(new Option(c,i));
+        });
+        document.getElementById("tolerance").add(new Option("±5% (Emas)","0.05"));
+
+        function calcResistor() {
+            const v1 = parseInt(band1.value), v2 = parseInt(band2.value), mul = parseInt(band3.value);
+            const tol = parseFloat(document.getElementById("tolerance").value);
+            const nilai = (v1*10 + v2) * (10**mul);
+            document.getElementById("resistorResult").innerHTML = `Nilai Resistor: ${nilai >= 1000 ? nilai/1000 + " kΩ" : nilai + " Ω"} <br> Toleransi: ${tol*100}%`;
+        }
+    </script>
+</div>
